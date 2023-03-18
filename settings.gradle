@@ -12,6 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Otp View"
+rootProject.name = "Chat GPT"
 include ':app'
-include ':otpview'

@@ -1,5 +1,6 @@
 package com.sugarspoon.data.datasource
 
+import com.sugarspoon.data.exceptions.ChatGptExceptions
 import com.sugarspoon.data.utils.Constants
 import com.sugarspoon.data.model.GptRequest
 import com.sugarspoon.data.model.GptResponse
@@ -18,7 +19,11 @@ class OpenAiDataSource {
     ).newInstance<OpenAiService>()
 
     fun getCompletion(requestBody: GptRequest) = flow {
-        emit(openAiService.getCompletion(requestBody))
+        try {
+            emit(openAiService.getCompletion(requestBody))
+        } catch (e: Exception) {
+            throw ChatGptExceptions.extractException(e)
+        }
     }
 
     interface OpenAiService {

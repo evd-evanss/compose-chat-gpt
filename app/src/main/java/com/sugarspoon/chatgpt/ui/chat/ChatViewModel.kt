@@ -1,8 +1,6 @@
 package com.sugarspoon.chatgpt.ui.chat
 
-import android.os.Build
 import android.text.format.DateFormat
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
 import com.sugarspoon.chatgpt.base.BaseViewModel
 import com.sugarspoon.chatgpt.components.message.MessageModel
@@ -18,19 +16,10 @@ import kotlinx.coroutines.launch
 
 class ChatViewModel: BaseViewModel<ChatState, ChatEvents>(ChatState()) {
 
-    private val repository = RepositoryImpl(OpenAiDataSource())
-    private val messages = mutableListOf<MessageModel>()
-    private val calendar = Calendar.getInstance(Locale.getDefault())
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun reduce(oldState: ChatState, sideEffect: ChatEvents) {
-        when(sideEffect) {
+    override fun reduce(oldState: ChatState, event: ChatEvents) {
+        when(event) {
             is ChatEvents.OnWriteQuestion -> {
-                createNewState(
-                    newState = oldState.copy(
-                        question = sideEffect.question
-                    )
-                )
+                createNewState(newState = oldState.copy(question = event.question))
             }
             is ChatEvents.OnSendQuestion -> {
                 includeQuestion(question = oldState.question, isResponse = false)
@@ -55,7 +44,7 @@ class ChatViewModel: BaseViewModel<ChatState, ChatEvents>(ChatState()) {
                         )
                     },
                     onError = {
-                        includeQuestion(question = CHAT_ERROR_MESSAGE, isResponse = true)
+                        includeQuestion(question = it.message ?: CHAT_ERROR_MESSAGE, isResponse = true)
                         createNewState(
                             newState = oldState.copy(
                                 messages = messages,
@@ -68,6 +57,10 @@ class ChatViewModel: BaseViewModel<ChatState, ChatEvents>(ChatState()) {
             }
         }
     }
+
+    private val repository = RepositoryImpl(OpenAiDataSource())
+    private val messages = mutableListOf<MessageModel>()
+    private val calendar = Calendar.getInstance(Locale.getDefault())
 
     private fun includeQuestion(question: String, isResponse: Boolean = false) {
         messages.add(

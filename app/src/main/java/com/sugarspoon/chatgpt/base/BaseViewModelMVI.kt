@@ -16,10 +16,10 @@ abstract class BaseViewModel<T : ScreenState, in E : ScreenEvent>(initialVal: T)
     }
 
     fun createNewState(newState: T) {
-        val success = _state.tryEmit(newState)
+        _state.tryEmit(newState)
     }
 
-    abstract fun reduce(oldState: T, sideEffect: E)
+    abstract fun reduce(oldState: T, event: E)git
 }
 
 interface ScreenState

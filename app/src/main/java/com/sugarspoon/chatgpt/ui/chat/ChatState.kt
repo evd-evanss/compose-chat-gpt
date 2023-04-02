@@ -6,7 +6,5 @@ import com.sugarspoon.chatgpt.components.message.MessageModel
 data class ChatState(
     val messages: List<MessageModel> = listOf(),
     val question: String = "",
-    val loading: Boolean = false,
-    val errorMessage: String = "",
-    val showError: Boolean = false,
+    val loading: Boolean = false
 ): ScreenState

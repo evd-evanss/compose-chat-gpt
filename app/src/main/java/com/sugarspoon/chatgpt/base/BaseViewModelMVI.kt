@@ -19,7 +19,7 @@ abstract class BaseViewModel<T : ScreenState, in E : ScreenEvent>(initialVal: T)
         _state.tryEmit(newState)
     }
 
-    abstract fun reduce(oldState: T, event: E)git
+    abstract fun reduce(oldState: T, event: E)
 }
 
 interface ScreenState

@@ -59,8 +59,13 @@ fun ChatScreen(
     }
     Loading(state = loadingDialogState)
     LaunchedEffect(key1 = state.messages.size) {
+        val lastIndex = if(state.messages.isNotEmpty()) {
+            state.messages.lastIndex
+        } else {
+            0
+        }
         launch {
-            listState.animateScrollToItem(index = state.messages.size)
+            listState.animateScrollToItem(index = lastIndex)
         }
     }
 }

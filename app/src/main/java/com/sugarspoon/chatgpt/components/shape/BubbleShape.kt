@@ -38,7 +38,7 @@ class BubbleShape(
 
     val cornerBubble: (Boolean) -> CornerRadius = {
         if (it) {
-            CornerRadius(8f, 8f)
+            CornerRadius(12f, 12f)
         } else {
             CornerRadius(cornerRadius, cornerRadius)
         }

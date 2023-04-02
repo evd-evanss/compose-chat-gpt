@@ -20,6 +20,7 @@ import com.sugarspoon.chatgpt.theme.Dimens.FontSmall
 import com.sugarspoon.chatgpt.theme.Dimens.SpacingX
 import com.sugarspoon.chatgpt.theme.Dimens.SpacingXS
 import com.sugarspoon.chatgpt.theme.Dimens.SpacingXXS
+import com.sugarspoon.chatgpt.theme.FountainBlue
 import com.sugarspoon.chatgpt.theme.Typography
 
 /**
@@ -34,15 +35,14 @@ import com.sugarspoon.chatgpt.theme.Typography
 fun BubbleMessage(
     message: MessageModel
 ) {
-    val responseColor = MaterialTheme.colors.primary
-    val questionColor = MaterialTheme.colors.secondary
+    val backgroundColor = if (message.isResponse) FountainBlue else MaterialTheme.colors.secondary
     Column(
         modifier = Modifier
             .wrapContentWidth()
             .wrapContentHeight()
             .padding(horizontal = SpacingXXS, vertical = SpacingXS)
             .clip(BubbleShape(CornerBubble, message.isResponse))
-            .background(if (message.isResponse) responseColor else questionColor)
+            .background(backgroundColor)
     ) {
         Row(modifier = Modifier.wrapContentWidth()) {
             Text(

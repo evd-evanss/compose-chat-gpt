@@ -33,7 +33,7 @@ class ChatViewModel: BaseViewModel<ChatState, ChatEvents>(ChatState()) {
                 )
             }
             is ChatEvents.OnSendQuestion -> {
-                includeQuestion(question = oldState.question)
+                includeQuestion(question = oldState.question, isResponse = false)
                 createNewState(
                     newState = oldState.copy(
                         loading = true,
@@ -55,7 +55,7 @@ class ChatViewModel: BaseViewModel<ChatState, ChatEvents>(ChatState()) {
                         )
                     },
                     onError = {
-                        includeQuestion(question = CHAT_ERROR_MESSAGE)
+                        includeQuestion(question = CHAT_ERROR_MESSAGE, isResponse = true)
                         createNewState(
                             newState = oldState.copy(
                                 messages = messages,
@@ -69,12 +69,12 @@ class ChatViewModel: BaseViewModel<ChatState, ChatEvents>(ChatState()) {
         }
     }
 
-    private fun includeQuestion(question: String) {
+    private fun includeQuestion(question: String, isResponse: Boolean = false) {
         messages.add(
             MessageModel(
                 text = question,
                 name = CHAT_LABEL_USER,
-                isResponse = false,
+                isResponse = isResponse,
                 time = getTimeFormatted()
             )
         )

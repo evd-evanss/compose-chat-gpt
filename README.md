@@ -1,4 +1,4 @@
-## OTP View - POC
+## Chat GPT - POC
 Prova de conceito da LIB Open Ai - https://openai.com/blog/openai-api
 
 ### Primeiros passos
@@ -23,3 +23,5 @@ Representa a interface do usuário
 
 Intent
 Representa os eventos gerados pelo usuário ao interagir com a View de forma explícita ou implícita.
+
+![image](https://user-images.githubusercontent.com/26419059/229371943-f7c5f3d7-6014-455c-9ed1-982aa43c3d5f.png)
